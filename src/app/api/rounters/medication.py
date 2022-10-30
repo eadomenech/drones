@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
-from ..db import SessionLocal
-from ..api import crud
-from ..api.schemas import Medication
+from ...db import SessionLocal
+from ..repositories import medication as crud
+from ..schemas.medication import MedicationSchemaCreate, MedicationSchema
 
 router = APIRouter()
 
@@ -17,9 +17,9 @@ def get_db():
         db.close()
 
 
-@router.post("/", response_model=Medication)
+@router.post("/", response_model=MedicationSchema)
 def create_medication(
-        medication: Medication, db: Session = Depends(get_db)):
+        medication: MedicationSchemaCreate, db: Session = Depends(get_db)):
     db_medication = crud.get_medication_by_name(db, name=medication.name)
     if db_medication:
         raise HTTPException(

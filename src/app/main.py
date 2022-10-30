@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 
-from .api import models
-from .api import drone, medication
-from .db import engine
+from .api.rounters import drone, medication
+from .db import engine, Base
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title='Drones',

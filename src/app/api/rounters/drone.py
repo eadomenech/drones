@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
-from ..db import SessionLocal
-from ..api import crud
-from ..api.schemas import Drone
+from ...db import SessionLocal
+from ..repositories import drone as crud
+from ..schemas.drone import DroneSchemaCreate, DroneSchema
 
 router = APIRouter()
 
@@ -17,8 +17,8 @@ def get_db():
         db.close()
 
 
-@router.post("/", response_model=Drone)
-def create_drone(drone: Drone, db: Session = Depends(get_db)):
+@router.post("/", response_model=DroneSchema)
+def create_drone(drone: DroneSchemaCreate, db: Session = Depends(get_db)):
     db_drone = crud.get_drone_by_serial_number(
         db, serial_number=drone.serial_number)
     if db_drone:
