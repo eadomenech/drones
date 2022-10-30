@@ -8,9 +8,9 @@ class DroneSchemaBase(BaseModel):
     serial_number: str = Field(..., max_length=100)
     model: str
     weight_limit: float
-    battery_capacity: float
+    battery_capacity: int
     state: str
-    items: List[MedicationSchema] = []
+    # items: List[MedicationSchema] = []
 
 class DroneSchemaCreate(DroneSchemaBase):
     pass
