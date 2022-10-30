@@ -31,6 +31,20 @@ def create_drone(db: Session, drone: schemas.Drone):
     return db_drone
 
 
+def create_medication(db: Session, medication: schemas.Medication):
+    db_medication = models.Medication(
+        name=medication.name,
+        weight=medication.weight,
+        code=medication.code,
+        image=medication.image)
+
+    db.add(db_medication)
+    db.commit()
+    db.refresh(db_medication)
+
+    return db_medication
+
+
 def get_medications(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Medication).offset(skip).limit(limit).all()
 

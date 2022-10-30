@@ -19,7 +19,7 @@ class Medication(Base):
     __tablename__ = "medications"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String, unique=True, index=True)
     weight = Column(Float)
     code = Column(String, index=True)
     image = Column(String)

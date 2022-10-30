@@ -34,3 +34,13 @@ def create_drone(drone: schemas.Drone, db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=400, detail="Serial number already registered")
     return crud.create_drone(db=db, drone=drone)
+
+
+@app.post("/medication/", response_model=schemas.Mediacation)
+def create_medication(
+        medication: schemas.Medication, db: Session = Depends(get_db)):
+    db_medication = crud.get_medication_by_name(db, name=medication.name)
+    if db_medication:
+        raise HTTPException(
+            status_code=400, detail="Medication already registered")
+    return crud.create_medication(db=db, medication=db_medication)
