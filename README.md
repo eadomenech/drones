@@ -70,3 +70,7 @@ Code quality:
 docker-compose run --rm api flake8 app
 ```
 
+### API docs:
+
+* http://localhost:8001/docs
+* http://localhost:8001/redoc
