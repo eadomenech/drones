@@ -6,7 +6,7 @@ class Medication(BaseModel):
     id: int
     name: str
     weight: float
-    code:str
+    code: str
     image: str
     drone_id: int
 

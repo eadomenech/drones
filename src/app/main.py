@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-from .api import schemas, models, crud
+from .api import models
 from .api import drone, medication
-from .db import SessionLocal, engine
+from .db import engine
 
 models.Base.metadata.create_all(bind=engine)
 

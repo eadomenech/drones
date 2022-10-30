@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Path, Depends
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 from ..db import SessionLocal
@@ -6,6 +6,7 @@ from ..api import crud
 from ..api.schemas import Medication
 
 router = APIRouter()
+
 
 # Dependency
 def get_db():
