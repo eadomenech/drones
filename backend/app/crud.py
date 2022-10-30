@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import models, schemas
 
 
+# Drone
 def get_drone(db: Session, drone_id: int):
     return db.query(models.Drone).filter(models.Drone.id == drone_id).first()
 
@@ -31,6 +32,12 @@ def create_drone(db: Session, drone: schemas.Drone):
     return db_drone
 
 
+# Medication
+def get_medication_by_name(db: Session, name: str):
+    return db.query(models.Medication).filter(
+        models.Medication.name == name).first()
+
+
 def create_medication(db: Session, medication: schemas.Medication):
     db_medication = models.Medication(
         name=medication.name,
@@ -47,7 +54,6 @@ def create_medication(db: Session, medication: schemas.Medication):
 
 def get_medications(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Medication).offset(skip).limit(limit).all()
-
 
 # def create_drone_medication(
 #         db: Session, item: schemas.MedicationCreate, drone_id: int):
