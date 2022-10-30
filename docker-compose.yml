@@ -2,9 +2,10 @@ version: '3'
 
 services:
   api:
-    container_name: drones-backend
+    container_name: drones-app
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: src/Dockerfile
     ports:
       - "8001:8001"
+

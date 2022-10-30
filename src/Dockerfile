@@ -1,8 +1,7 @@
-FROM python:3.8-slim-buster
+FROM drones_requirements
 
-RUN pip install fastapi uvicorn
-
-COPY ./app /app
+# copy project
+COPY ./src /usr/src/app/
 
 EXPOSE 8001
 

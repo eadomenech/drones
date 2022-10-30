@@ -1,6 +1,5 @@
-from typing import List, Union
-
-from pydantic import BaseModel
+from typing import List
+from pydantic import BaseModel, Field
 
 
 class Medication(BaseModel):
@@ -17,7 +16,7 @@ class Medication(BaseModel):
 
 class Drone(BaseModel):
     id: int
-    serial_number: str
+    serial_number: str = Field(..., max_length=100)
     model: str
     weight_limit: float
     battery_capacity: float

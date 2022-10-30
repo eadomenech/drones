@@ -6,4 +6,7 @@ source venv/bin/activate
 python -m pip install -U pip
 pip install -r requiremets.txt
 
+docker build -f src/Dockerfile-requirements --tag drones_requirements .
+
+docker-compose up --build
 

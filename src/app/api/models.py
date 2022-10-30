@@ -1,10 +1,20 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy_utils.types.choice import ChoiceType
 
-from database import Base
+from ..db import Base
 
 
 class Drone(Base):
+    STATE_TYPES = [
+        ('idle', 'IDLE'),
+        ('loading', 'LOADING'),
+        ('loaded', 'LOADED'),
+        ('delivering', 'DELIVERING'),
+        ('delivered', 'DELIVERED'),
+        ('returning', 'RETURNING')
+    ]
+
     __tablename__ = "drones"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -12,7 +22,7 @@ class Drone(Base):
     model = Column(String, unique=True)
     weight_limit = Column(Float)
     battery_capacity = Column(Float)
-    state = Column(String)
+    state = Column(ChoiceType(STATE_TYPES))
 
 
 class Medication(Base):

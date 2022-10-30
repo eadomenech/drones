@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-import models, schemas
+from ..api import schemas, models
 
 
 # Drone
