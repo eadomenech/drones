@@ -7,8 +7,8 @@ class MedicationSchemaBase(BaseModel):
     name: str
     weight: float
     code: str
-    image: str
-    drone_id: int
+    image: Optional[str]
+    drone_id: Optional[int]
 
     class Config:
         orm_mode = True

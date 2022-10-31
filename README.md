@@ -9,7 +9,7 @@ git clone https://github.com/eadomenech/drones.git
 ```
 
 ```bash
-cd src
+cd drone
 ```
 
 ```bash
@@ -26,6 +26,10 @@ python -m pip install -U pip
 
 ```bash
 pip install -r requiremets.txt
+```
+
+```bash
+cd src
 ```
 
 ```bash

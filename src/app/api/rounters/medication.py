@@ -1,25 +1,21 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 
-from ...db import SessionLocal
+from ...db import get_db
 from ..repositories import medication as crud
 from ..schemas.medication import MedicationSchemaCreate, MedicationSchema
 
 router = APIRouter()
 
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
 @router.post("/", response_model=MedicationSchema)
 def create_medication(
-        medication: MedicationSchemaCreate, db: Session = Depends(get_db)):
+        medication: MedicationSchemaCreate = Depends(),
+        image: UploadFile = File(...),
+        db: Session = Depends(get_db)):
+
+    print(image.filename)
+
     db_medication = crud.get_medication_by_name(db, name=medication.name)
     if db_medication:
         raise HTTPException(
