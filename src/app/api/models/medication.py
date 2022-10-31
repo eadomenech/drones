@@ -11,4 +11,4 @@ class MedicationModel(Base):
     name = Column(String, unique=True, index=True)
     weight = Column(Float)
     code = Column(String, index=True)
-    image = Column(Integer)
+    image = Column(String)

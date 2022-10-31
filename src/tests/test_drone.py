@@ -9,7 +9,7 @@ def test_create_drone(test_app, monkeypatch):
         "model": "Lightweight",
         "weight_limit": "100.0",
         "battery_capacity": "80",
-        "state": "idle"
+        "state": "IDLE"
     }
     test_response_payload = {
         "id": 1,
@@ -17,7 +17,7 @@ def test_create_drone(test_app, monkeypatch):
         "model": "Lightweight",
         "weight_limit": 100.0,
         "battery_capacity": 80,
-        "state": "idle"
+        "state": "IDLE"
     }
 
     async def mock_post(payload):
