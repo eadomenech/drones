@@ -53,7 +53,7 @@ $ flake8 app
 Create requirements image:
 
 ```bash
-docker build -f src/Dockerfile-requirements --tag drones_requirements .
+docker build -f compose/Dockerfile-requirements --tag drones_requirements .
 ```
 
 Create container:

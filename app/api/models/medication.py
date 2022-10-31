@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
-from ...db import Base
+from app.db import Base
 
 
 class MedicationModel(Base):
@@ -12,3 +12,8 @@ class MedicationModel(Base):
     weight = Column(Float)
     code = Column(String, index=True)
     image = Column(String)
+    drone_id = Column(Integer, ForeignKey("drones.id"))
+    drone = relationship("DroneModel", back_populates="medications")
+
+    def __repr__(self):
+        return f'Medication(name={self.name})'

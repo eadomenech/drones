@@ -1,7 +1,7 @@
 FROM drones_requirements
 
 # copy project
-COPY ./src /usr/src/app/
+COPY . /usr/src/app
 
 EXPOSE 8001
 

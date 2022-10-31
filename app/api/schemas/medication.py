@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 
 class MedicationSchemaBase(BaseModel):
-    id: Optional[int]
     name: str
     weight: float
     code: str
@@ -19,7 +18,7 @@ class MedicationSchemaCreate(MedicationSchemaBase):
 
 
 class MedicationSchema(MedicationSchemaBase):
-    id: Optional[int]
+    id: int
 
     class Config:
         orm_mode = True

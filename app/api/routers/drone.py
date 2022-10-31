@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
-from ...db import get_db
+from app.db import get_db
 from ..repositories import drone as crud
 from ..schemas.drone import DroneSchemaCreate, DroneSchema
 

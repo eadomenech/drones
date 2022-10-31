@@ -11,7 +11,7 @@ class DroneSchemaBase(BaseModel):
     weight_limit: float
     battery_capacity: int
     state: DroneEnumState
-    items: List[MedicationSchema] = []
+    medications: List[MedicationSchema] = []
 
 
 class DroneSchemaCreate(DroneSchemaBase):
@@ -19,7 +19,7 @@ class DroneSchemaCreate(DroneSchemaBase):
 
 
 class DroneSchema(DroneSchemaBase):
-    id: Optional[int]
+    id: int
 
     class Config:
         orm_mode = True

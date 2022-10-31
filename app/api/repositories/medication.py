@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from ..models.medication import MedicationModel
+from app.api.models.medication import MedicationModel
 from ..schemas.medication import MedicationSchemaCreate
 
 
