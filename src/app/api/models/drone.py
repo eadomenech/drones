@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy import Enum
 
 from ...db import Base
-from .enums import DroneEnumModel, DroneEnumState
+from ..enums import DroneEnumModel, DroneEnumState
 
 
 class DroneModel(Base):

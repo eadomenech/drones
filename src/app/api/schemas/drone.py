@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 from .medication import MedicationSchema
-from ..models.enums import DroneEnumModel, DroneEnumState
+from ..enums import DroneEnumModel, DroneEnumState
 
 
 class DroneSchemaBase(BaseModel):
