@@ -20,4 +20,4 @@ def create_medication(
     if db_medication:
         raise HTTPException(
             status_code=400, detail="Medication already registered")
-    return crud.create_medication(db=db, medication=db_medication)
+    return crud.create_medication(db=db, medication=medication)

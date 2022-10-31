@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from ..models.medication import MedicationModel
-from ..schemas.medication import MedicationSchemaBase
+from ..schemas.medication import MedicationSchemaCreate
 
 
 def get_medication_by_name(db: Session, name: str):
@@ -9,7 +9,7 @@ def get_medication_by_name(db: Session, name: str):
         MedicationModel.name == name).first()
 
 
-def create_medication(db: Session, medication: MedicationSchemaBase):
+def create_medication(db: Session, medication: MedicationSchemaCreate):
     db_medication = MedicationModel(
         name=medication.name,
         weight=medication.weight,

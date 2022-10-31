@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 
-from .api.rounters import drone, medication
+from .api.routers import drone, medication
 from .db import engine, Base
 
 Base.metadata.create_all(bind=engine)

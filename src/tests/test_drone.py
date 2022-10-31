@@ -1,6 +1,6 @@
 import json
 
-from ..app.api.rounters import drone
+from ..app.api.routers import drone
 
 
 def test_create_drone(test_app, monkeypatch):
