@@ -1,5 +1,5 @@
-from typing import List, Optional
-from pydantic import BaseModel, Field
+from typing import Optional
+from pydantic import BaseModel
 
 
 class MedicationSchemaBase(BaseModel):
@@ -13,8 +13,10 @@ class MedicationSchemaBase(BaseModel):
     class Config:
         orm_mode = True
 
+
 class MedicationSchemaCreate(MedicationSchemaBase):
     pass
+
 
 class MedicationSchema(MedicationSchemaBase):
     id: Optional[int]
