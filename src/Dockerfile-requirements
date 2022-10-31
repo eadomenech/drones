@@ -11,6 +11,7 @@ ENV PYTHONUNBUFFERED 1
 COPY ./src/requirements.txt /usr/src/app/requirements.txt
 
 # install dependencies
+RUN apt-get update && apt-get install libmagickwand-dev
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -r /usr/src/app/requirements.txt
 
