@@ -15,8 +15,9 @@ class DroneModel(Base):
     weight_limit = Column(Float)
     battery_capacity = Column(Integer)
     state = Column(Enum(DroneEnumState), default=DroneEnumState.IDLE)
+
     medications = relationship(
-        "MedicationModel", back_populates="drone", cascade="all, delete-orphan")
+        "MedicationModel", back_populates="drone")
 
     def __repr__(self):
         return f'Drone(serial_number={self.serial_number})'

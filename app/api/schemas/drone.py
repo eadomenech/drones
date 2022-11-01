@@ -1,7 +1,5 @@
-from typing import List, Optional
 from pydantic import BaseModel, Field
 
-from .medication import MedicationSchema
 from ..enums import DroneEnumModel, DroneEnumState
 
 
@@ -11,7 +9,6 @@ class DroneSchemaBase(BaseModel):
     weight_limit: float
     battery_capacity: int
     state: DroneEnumState
-    medications: List[MedicationSchema] = []
 
 
 class DroneSchemaCreate(DroneSchemaBase):

@@ -26,7 +26,7 @@ def test_create_drone(test_app, monkeypatch):
     response = test_app.post(
         "/medications/", data=json.dumps(test_request_payload))
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json()['name'] == test_response_payload['name']
     assert float(response.json()['weight']) == test_response_payload['weight']
     assert response.json()['code'] == test_response_payload['code']

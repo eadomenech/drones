@@ -1,13 +1,15 @@
 from typing import Optional
 from pydantic import BaseModel
 
+from .drone import DroneSchema
+
 
 class MedicationSchemaBase(BaseModel):
     name: str
     weight: float
     code: str
     image: Optional[str]
-    drone_id: Optional[int]
+    drone: Optional[DroneSchema]
 
     class Config:
         orm_mode = True

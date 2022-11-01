@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends, File, UploadFile
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -9,9 +9,9 @@ from ..schemas.medication import MedicationSchemaCreate, MedicationSchema
 router = APIRouter()
 
 
-@router.post("/", response_model=MedicationSchema)
+@router.post("/", response_model=MedicationSchema, status_code=201)
 def create_medication(
-    medication: MedicationSchemaCreate, db: Session = Depends(get_db)):
+        medication: MedicationSchemaCreate, db: Session = Depends(get_db)):
     db_medication = service.get_medication_by_name(db, name=medication.name)
     if db_medication:
         raise HTTPException(

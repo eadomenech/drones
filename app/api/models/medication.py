@@ -14,6 +14,7 @@ class MedicationModel(Base):
     code = Column(String, index=True)
     image = Column(String)
     drone_id = Column(Integer, ForeignKey("drones.id"))
+
     drone = relationship("DroneModel", back_populates="medications")
 
     def __repr__(self):

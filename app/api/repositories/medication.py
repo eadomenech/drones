@@ -19,7 +19,8 @@ def create_medication(db: Session, medication: MedicationSchemaCreate):
         name=medication.name,
         weight=medication.weight,
         code=medication.code,
-        image=medication.image)
+        image=medication.image
+    )
 
     db.add(db_medication)
     db.commit()

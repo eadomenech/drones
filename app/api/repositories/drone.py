@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from typing import List
 
 from ..schemas.drone import DroneSchemaCreate
 from app.api.models.drone import DroneModel
@@ -26,6 +27,15 @@ def create_drone(db: Session, drone: DroneSchemaCreate):
         state=drone.state)
 
     db.add(db_drone)
+    db.commit()
+    db.refresh(db_drone)
+
+    return db_drone
+
+
+def loading_drone(db: Session, drone_id: int, medications: List[int]):
+    db_drone = db.query(DroneModel).filter(DroneModel.id == drone_id)
+
     db.commit()
     db.refresh(db_drone)
 

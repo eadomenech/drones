@@ -27,7 +27,7 @@ def test_create_drone(test_app, monkeypatch):
     response = test_app.post(
         "/drones/", data=json.dumps(test_request_payload), )
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json()['serial_number'] == test_response_payload[
         'serial_number']
     assert response.json()['model'] == test_response_payload['model']
