@@ -1,11 +1,12 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 
 from .enums import DroneEnumModel, DroneEnumState
 from typing import List, Optional
 
 
 class MedicationSchemaBase(BaseModel):
-    name: str
+    name: str = Field(
+        regex="^[A-Za-z0-9 _-]*[A-Za-z0-9][A-Za-z0-9 _-]*$")
     weight: float
     code: str
     image: Optional[str]
@@ -20,7 +21,7 @@ class MedicationSchemaCreate(MedicationSchemaBase):
 
 class MedicationSchema(MedicationSchemaBase):
     id: int
-    drone_id: int
+    drone_id: Optional[int]
 
     class Config:
         orm_mode = True
@@ -32,6 +33,20 @@ class DroneSchemaBase(BaseModel):
     weight_limit: float
     battery_capacity: int
     state: DroneEnumState
+
+    @validator("weight_limit")
+    def weight_limit_must_be_less_tham_500(cls, value):
+        if float(value) > 500.0:
+            raise ValueError(
+                f"we expect weight limit <= 500.0, we received {value}")
+        return value
+
+    @validator("battery_capacity")
+    def battery_capacity_between_0_100(cls, value):
+        if value < 0 or value > 100:
+            raise ValueError(
+                f"we expect a value between 0 and 100, we received {value}")
+        return value
 
 
 class DroneSchemaCreate(DroneSchemaBase):
