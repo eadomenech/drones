@@ -65,10 +65,17 @@ def create_medication_for_drone(
 
 @router.get(
     "/{drone_id}/medications/", response_model=List[MedicationSchema],
-    status_code=202)
+    status_code=200)
 def loaded_medications(drone_id: int, db: Session = Depends(get_db)):
     db_drone = service.get_drone(db, drone_id)
     if not db_drone:
         raise HTTPException(
             status_code=404, detail="Drone not found")
     return service.loaded_medications(db=db, drone_id=drone_id)
+
+
+@router.get(
+    "/available/", response_model=List[DroneSchema], status_code=200)
+def available_drones(db: Session = Depends(get_db)):
+    return service.available_drones(db=db)
+

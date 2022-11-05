@@ -57,6 +57,14 @@ def loading_drone(db: Session, drone_id: int, medications: List[int]):
         db.commit()
         db.refresh(db_medication)
 
-
-
     return db_drone
+
+
+def available_drones(db: Session):
+    drones = []
+    for drone in get_drones(db):
+        if drone.weight_limit > sum([m.weight for m in drone.medications]):
+            drones.append(drone)
+
+    return drones
+
