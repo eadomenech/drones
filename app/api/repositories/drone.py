@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from typing import List
 
-from ..schemas.drone import DroneSchemaCreate
+from ..schemas import DroneSchemaCreate
 from app.api.models.drone import DroneModel
 
 

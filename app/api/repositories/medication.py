@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.api.models.medication import MedicationModel
-from ..schemas.medication import MedicationSchemaCreate
+from ..schemas import MedicationSchemaCreate
 
 
 def get_medication(db: Session, drone_id: int):

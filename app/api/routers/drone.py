@@ -4,7 +4,7 @@ from typing import List
 
 from app.db import get_db
 from ..repositories import drone as service
-from ..schemas.drone import DroneSchemaCreate, DroneSchema
+from ..schemas import DroneSchemaCreate, DroneSchema
 
 router = APIRouter()
 

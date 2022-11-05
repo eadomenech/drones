@@ -4,7 +4,7 @@ from typing import List
 
 from app.db import get_db
 from ..repositories import medication as service
-from ..schemas.medication import MedicationSchemaCreate, MedicationSchema
+from ..schemas import MedicationSchemaCreate, MedicationSchema
 
 router = APIRouter()
 
