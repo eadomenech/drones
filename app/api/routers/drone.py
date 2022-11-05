@@ -59,5 +59,16 @@ def create_medication_for_drone(
     if db_medication:
         raise HTTPException(
             status_code=400, detail="Medication already registered")
-    return service_drone_medication.create_drone_medication(
-        db=db, drone_id=drone_id, medication=medication)
+    return service.loading_drone(
+        db=db, drone_id=drone_id, medications=[medication])
+
+
+@router.get(
+    "/{drone_id}/medications/", response_model=List[MedicationSchema],
+    status_code=202)
+def loaded_medications(drone_id: int, db: Session = Depends(get_db)):
+    db_drone = service.get_drone(db, drone_id)
+    if not db_drone:
+        raise HTTPException(
+            status_code=404, detail="Drone not found")
+    return service.loaded_medications(db=db, drone_id=drone_id)

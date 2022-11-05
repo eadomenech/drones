@@ -16,6 +16,10 @@ def get_drone_by_serial_number(db: Session, serial_number: str):
         DroneModel.serial_number == serial_number).first()
 
 
+def loaded_medications(db: Session, drone_id: int):
+    return db.query(DroneModel).get(drone_id).medications
+
+
 def get_drones(db: Session, skip: int = 0, limit: int = 100):
     return db.query(DroneModel).offset(skip).limit(limit).all()
 
