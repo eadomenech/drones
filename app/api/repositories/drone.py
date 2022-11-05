@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from ..schemas import DroneSchemaCreate
-from app.api.models.drone import DroneModel
+from app.api.models import DroneModel
 
 
 def get_drone(db: Session, drone_id: int):
