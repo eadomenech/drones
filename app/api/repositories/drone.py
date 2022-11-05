@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -34,6 +36,15 @@ def create_drone(db: Session, drone: DroneSchemaCreate):
 
 
 def loading_drone(db: Session, drone_id: int, medications: List[int]):
+    db_drone = db.query(DroneModel).get(drone_id)
+    total_weight = 0.0
+    for medication_id in medications:
+        db_medication = db.query(MedicationModel).get(medication_id)
+        total_weight += db_medication.weight
+
+    if total_weight > db_drone.weight_limit:
+        raise HTTPException(
+            status_code=400, detail="Weight limit exceeded.")
 
     for medication_id in medications:
         db_medication = db.query(MedicationModel).get(medication_id)
@@ -42,6 +53,6 @@ def loading_drone(db: Session, drone_id: int, medications: List[int]):
         db.commit()
         db.refresh(db_medication)
 
-    db_drone = db.query(DroneModel).get(drone_id)
+
 
     return db_drone
