@@ -68,3 +68,10 @@ def available_drones(db: Session):
 
     return drones
 
+
+def battery_level(db: Session, drone_id: int):
+    db_drone = db.query(DroneModel).get(drone_id)
+
+    return db_drone.battery_capacity
+
+

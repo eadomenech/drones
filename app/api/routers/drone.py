@@ -79,3 +79,13 @@ def loaded_medications(drone_id: int, db: Session = Depends(get_db)):
 def available_drones(db: Session = Depends(get_db)):
     return service.available_drones(db=db)
 
+
+@router.get("/{drone_id}/battery/", response_model=int, status_code=200)
+def battery_level(drone_id: int, db: Session = Depends(get_db)):
+    db_drone = service.get_drone(db, drone_id)
+    if not db_drone:
+        raise HTTPException(
+            status_code=404, detail="Drone not found")
+    return service.battery_level(db=db, drone_id=drone_id)
+
+
