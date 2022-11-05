@@ -39,9 +39,13 @@ def loading_drone(
     if not db_drone:
         raise HTTPException(
             status_code=404, detail="Drone not found")
-    else:
-        return service.loading_drone(
-            db=db, drone_id=drone_id, medications=medications)
+    for medication_id in medications:
+        db_medication = service_medication.get_medication(db, medication_id)
+        if not db_medication:
+            raise HTTPException(
+                status_code=400, detail="Medication not found")
+    return service.loading_drone(
+        db=db, drone_id=drone_id, medications=medications)
 
 
 @router.post(

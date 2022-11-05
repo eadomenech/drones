@@ -2,11 +2,11 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from ..schemas import DroneSchemaCreate
-from app.api.models import DroneModel
+from app.api.models import DroneModel, MedicationModel
 
 
 def get_drone(db: Session, drone_id: int):
-    return db.query(DroneModel).filter(DroneModel.id == drone_id).first()
+    return db.query(DroneModel).get(drone_id)
 
 
 def get_drone_by_serial_number(db: Session, serial_number: str):
@@ -34,9 +34,14 @@ def create_drone(db: Session, drone: DroneSchemaCreate):
 
 
 def loading_drone(db: Session, drone_id: int, medications: List[int]):
-    db_drone = db.query(DroneModel).filter(DroneModel.id == drone_id)
 
-    db.commit()
-    db.refresh(db_drone)
+    for medication_id in medications:
+        db_medication = db.query(MedicationModel).get(medication_id)
+        db_medication.drone_id = drone_id
+        db.add(db_medication)
+        db.commit()
+        db.refresh(db_medication)
+
+    db_drone = db.query(DroneModel).get(drone_id)
 
     return db_drone
