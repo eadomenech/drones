@@ -1,5 +1,3 @@
-from fastapi import HTTPException
-
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -72,15 +70,13 @@ def is_available(drone_id: int, db: Session):
     error = list()
     if db_drone.weight_limit <= sum([m.weight for m in db_drone.medications]):
         available = False
-        error.append(
-            HTTPException(status_code=400, detail="Weight limit exceeded"))
+        error.append("Weight limit exceeded")
     if db_drone.state not in [DroneEnumState.IDLE, DroneEnumState.LOADING]:
         available = False
-        error.append(
-            HTTPException(status_code=400, detail="State not allowed"))
+        error.append("State not allowed")
     if db_drone.battery_capacity < 25:
         available = False
-        error.append(HTTPException(status_code=400, detail="Low battery"))
+        error.append("Low battery")
 
     return {'available': available, 'error': error}
 
