@@ -1,10 +1,12 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 
-from app.api.services.medication import MedicationService as medication_service
+from app.api.services.medication import MedicationService
 from app.api.schemas import MedicationSchemaCreate, MedicationSchema
 
 router = APIRouter()
+
+medication_service = MedicationService()
 
 
 @router.post("/", response_model=MedicationSchema, status_code=201)

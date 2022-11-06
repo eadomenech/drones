@@ -18,7 +18,7 @@ class MedicationService(object):
         return self.repository.create(medication)
 
     def get_all(self, skip: int = 0, limit: int = 100):
-        return self.repository.medication_repository.get_all(skip, limit)
+        return self.repository.get_all(skip, limit)
 
     def update(self, medication: MedicationModel):
         return self.repository.update(medication)

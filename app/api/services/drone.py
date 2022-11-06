@@ -1,6 +1,6 @@
 from typing import List
 
-from app.api.schemas import DroneSchemaCreate
+from app.api.schemas import DroneSchemaCreate, DroneSchema
 from app.api.models import DroneModel
 from app.api.enums import DroneEnumState
 from app.api.repositories.alchemy.drone import DroneRepository
@@ -55,7 +55,7 @@ class DroneService(object):
             'errors': errors,
             'drone': self.update(db_drone)}
 
-    def update(self, db_drone: DroneModel):
+    def update(self, db_drone: DroneSchema):
         return self.drone_repository.update(db_drone)
 
     def is_available(self, drone_id: int):
