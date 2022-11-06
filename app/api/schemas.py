@@ -30,9 +30,10 @@ class MedicationSchema(MedicationSchemaBase):
 class DroneSchemaBase(BaseModel):
     serial_number: str = Field(..., max_length=100)
     model: DroneEnumModel
-    weight_limit: float
-    battery_capacity: int
+    weight_limit: float = 500.0
+    battery_capacity: int = 100
     state: DroneEnumState
+    charging: bool = False
 
     @validator("weight_limit")
     def weight_limit_must_be_less_tham_500(cls, value):

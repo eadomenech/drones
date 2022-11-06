@@ -89,3 +89,44 @@ def battery_level(drone_id: int, db: Session = Depends(get_db)):
     return service.battery_level(db=db, drone_id=drone_id)
 
 
+@router.put(
+    "/{drone_id}/discharge", response_model=DroneSchema, status_code=202)
+def discharge_battery(drone_id: int, db: Session = Depends(get_db)):
+    db_drone = service.get_drone(db, drone_id)
+    if not db_drone:
+        raise HTTPException(
+            status_code=404, detail="Drone not found")
+    return service.reduce_battery_level(db=db, drone_id=drone_id)
+
+
+@router.put(
+    "/{drone_id}/charge", response_model=DroneSchema, status_code=202)
+def charge_battery(drone_id: int, db: Session = Depends(get_db)):
+    db_drone = service.get_drone(db, drone_id)
+    if not db_drone:
+        raise HTTPException(
+            status_code=404, detail="Drone not found")
+    return service.charge_battery(db=db, drone_id=drone_id)
+
+
+@router.put(
+    "/{drone_id}/connect", response_model=DroneSchema, status_code=202)
+def connect(drone_id: int, db: Session = Depends(get_db)):
+    db_drone = service.get_drone(db, drone_id)
+    if not db_drone:
+        raise HTTPException(
+            status_code=404, detail="Drone not found")
+    return service.connect(db=db, drone_id=drone_id)
+
+
+@router.put(
+    "/{drone_id}/disconnect", response_model=DroneSchema, status_code=202)
+def disconnect(drone_id: int, db: Session = Depends(get_db)):
+    db_drone = service.get_drone(db, drone_id)
+    if not db_drone:
+        raise HTTPException(
+            status_code=404, detail="Drone not found")
+    return service.disconnect(db=db, drone_id=drone_id)
+
+
+

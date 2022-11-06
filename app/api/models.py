@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
 from sqlalchemy import Enum
 from sqlalchemy.orm import relationship
 
@@ -12,9 +12,10 @@ class DroneModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     serial_number = Column(String(100), unique=True, index=True)
     model = Column(Enum(DroneEnumModel), default=DroneEnumModel.Lightweight)
-    weight_limit = Column(Float)
-    battery_capacity = Column(Integer)
+    weight_limit = Column(Float, default=500.0)
+    battery_capacity = Column(Integer, default=100)
     state = Column(Enum(DroneEnumState), default=DroneEnumState.IDLE)
+    charging = Column(Boolean, default=False)
 
     medications = relationship(
         "MedicationModel", back_populates="drone")
