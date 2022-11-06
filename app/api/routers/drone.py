@@ -96,7 +96,7 @@ def discharge_battery(drone_id: int, db: Session = Depends(get_db)):
     if not db_drone:
         raise HTTPException(
             status_code=404, detail="Drone not found")
-    return service.reduce_battery_level(db=db, drone_id=drone_id)
+    return service.discharge_battery(db=db, drone_id=drone_id)
 
 
 @router.put(
