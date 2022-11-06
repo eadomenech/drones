@@ -1,5 +1,5 @@
 from app.api.models import MedicationModel
-from app.api.schemas import  MedicationSchemaCreate
+from app.api.schemas import MedicationSchemaCreate
 from app.api.repositories.alchemy.medication import MedicationRepository
 
 

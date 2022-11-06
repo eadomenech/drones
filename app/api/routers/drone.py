@@ -1,15 +1,15 @@
 from fastapi import APIRouter, HTTPException, Depends
-from sqlalchemy.orm import Session
 from typing import List
 
-from app.db import get_db
-from app.api.services.drone import DroneService as drone_service
-from app.api.services.medication import MedicationService as medication_service
-from ..schemas import (
+from app.api.services.drone import DroneService
+from app.api.services.medication import MedicationService
+from app.api.schemas import (
     DroneSchemaCreate, DroneSchema, MedicationSchema, MedicationSchemaCreate)
 
 router = APIRouter()
 
+drone_service = DroneService()
+medication_service = MedicationService()
 
 @router.post("/", response_model=DroneSchema, status_code=201)
 def create_drone(drone: DroneSchemaCreate):
@@ -63,7 +63,7 @@ def create_medication_for_drone(
     "/{drone_id}/medications/", response_model=List[MedicationSchema],
     status_code=200)
 def loaded_medications(drone_id: int):
-    db_drone = drone_service.(drone_id)
+    db_drone = drone_service.get(drone_id)
     if not db_drone:
         raise HTTPException(
             status_code=404, detail="Drone not found")
@@ -123,6 +123,3 @@ def disconnect(drone_id: int):
         raise HTTPException(
             status_code=404, detail="Drone not found")
     return drone_service.disconnect(drone_id=drone_id)
-
-
-

@@ -1,13 +1,12 @@
-from sqlalchemy.orm import Session
-
-from app.api.models import DroneModel, MedicationModel
+from app.db import get_db
+from app.api.models import DroneModel
 from app.api.schemas import DroneSchemaCreate
 
 
 class DroneRepository(object):
 
     def __init__(self):
-        self.db = Session()
+        self.db = next(get_db())
 
     def get(self, drone_id: int):
         return self.db.query(DroneModel).get(drone_id)

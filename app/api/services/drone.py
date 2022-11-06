@@ -14,23 +14,23 @@ class DroneService(object):
         self.medication_service = MedicationService()
 
     def get(self, drone_id: int):
-        return self.drone_repository.get_drone(drone_id)
+        return self.drone_repository.get(drone_id)
 
     def get_by_serial_number(self, serial_number: str):
-        return self.drone_repository.get_drone_by_serial_number(serial_number)
+        return self.drone_repository.get_by_serial_number(serial_number)
 
     def medications(self, drone_id: int):
         return self.drone_repository.medications(drone_id)
 
     def get_all(self, skip: int = 0, limit: int = 100):
-        return self.drone_repository.get_drones(skip, limit)
+        return self.drone_repository.get_all(skip, limit)
 
     def create(self, drone: DroneSchemaCreate):
-        return self.drone_repository.create_drone(drone)
+        return self.drone_repository.create(drone)
 
     def loading(self, drone_id: int, medications: List[int]):
         errors = list()
-        db_drone = self.get_drone(drone_id)
+        db_drone = self.get(drone_id)
 
         if not db_drone:
             errors.append("Drone not found")
@@ -48,7 +48,7 @@ class DroneService(object):
             db_medication.drone_id = drone_id
             self.medication_service.update(db_medication)
 
-        db_drone.state = 'LOADING'
+        db_drone.state = DroneEnumState.LOADING
 
         return {
             'success': len(errors) == 0,

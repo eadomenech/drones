@@ -1,13 +1,12 @@
-from sqlalchemy.orm import Session
-
+from app.db import get_db
 from app.api.models import MedicationModel
 from app.api.schemas import MedicationSchemaCreate
 
 
 class MedicationRepository(object):
 
-    def __init__(self, db: Session):
-        self.db = db
+    def __init__(self):
+        self.db = next(get_db())
 
     def get(self, drone_id: int):
         return self.db.query(MedicationModel).filter(
