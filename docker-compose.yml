@@ -8,4 +8,26 @@ services:
       dockerfile: compose/Dockerfile
     ports:
       - "8001:8001"
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  worker:
+    build:
+    command: celery worker --app=worker.celery --loglevel=info
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - api
+      - redis
+
+  redis:
+    image: redis:6-alpine
 
