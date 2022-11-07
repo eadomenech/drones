@@ -1,6 +1,6 @@
 from app.db import get_db
 from app.api.models import MedicationModel
-from app.api.schemas import MedicationSchemaCreate
+from app.api.schemas import MedicationSchemaCreate, MedicationSchema
 
 
 class MedicationRepository(object):
@@ -8,9 +8,8 @@ class MedicationRepository(object):
     def __init__(self):
         self.db = next(get_db())
 
-    def get(self, drone_id: int):
-        return self.db.query(MedicationModel).filter(
-            MedicationModel.id == drone_id).first()
+    def get(self, medications_id: int):
+        return self.db.query(MedicationModel).get(medications_id)
 
     def get_by_name(self, name: str):
         return self.db.query(MedicationModel).filter(

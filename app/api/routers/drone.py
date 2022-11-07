@@ -42,6 +42,10 @@ def loading_drone(drone_id: int, medications: List[int]):
         if not db_medication:
             raise HTTPException(
                 status_code=400, detail="Medication not found")
+        elif db_medication.drone_id:
+            raise HTTPException(
+                status_code=400,
+                detail="The medication has been dispensed")
     result = drone_service.loading(
         drone_id=drone_id, medications=medications)
     if result['success']:
@@ -49,19 +53,6 @@ def loading_drone(drone_id: int, medications: List[int]):
     else:
         raise HTTPException(
             status_code=400, detail=result['errors'][0])
-
-
-@router.post(
-    "/{drone_id}/medications/", response_model=MedicationSchema,
-    status_code=201)
-def create_medication_for_drone(
-        drone_id: int, medication: MedicationSchemaCreate):
-    db_medication = medication_service.get_by_name(name=medication.name)
-    if db_medication:
-        raise HTTPException(
-            status_code=400, detail="Medication already registered")
-    return drone_service.loading(
-        drone_id=drone_id, medications=[medication])
 
 
 @router.get(
