@@ -5,8 +5,7 @@ from typing import List, Optional
 
 
 class MedicationSchemaBase(BaseModel):
-    name: str = Field(
-        regex="^[A-Za-z0-9 _-]*[A-Za-z0-9][A-Za-z0-9 _-]*$")
+    name: str = Field(regex="^[A-Za-z0-9_-]+$")
     weight: float
     code: str
     image: Optional[str]

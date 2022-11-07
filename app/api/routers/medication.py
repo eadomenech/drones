@@ -1,29 +1,28 @@
-from fastapi import APIRouter, HTTPException, Depends
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, HTTPException
 from typing import List
 
-from app.db import get_db
-from ..repositories import medication as service
-from ..schemas import MedicationSchemaCreate, MedicationSchema
+from app.api.services.medication import MedicationService
+from app.api.schemas import MedicationSchemaCreate, MedicationSchema
 
 router = APIRouter()
 
+medication_service = MedicationService()
+
 
 @router.post("/", response_model=MedicationSchema, status_code=201)
-def create_medication(
-        medication: MedicationSchemaCreate, db: Session = Depends(get_db)):
-    db_medication = service.get_medication_by_name(db, name=medication.name)
+def create_medication(medication: MedicationSchemaCreate):
+    db_medication = medication_service.get_by_name(name=medication.name)
     if db_medication:
         raise HTTPException(
             status_code=400, detail="Medication already registered")
-    return service.create_medication(db=db, medication=medication, )
+    return medication_service.create(medication=medication)
 
 
 @router.get('/', response_model=List[MedicationSchema])
-def get_medications(db: Session = Depends(get_db)):
-    return service.get_medications(db)
+def get_medications():
+    return medication_service.get_all()
 
 
 @router.get('/{medication_id}')
-def get_medication(medication_id: int, db: Session = Depends(get_db)):
-    return service.get_medication(db, medication_id)
+def get_medication(medication_id: int,):
+    return medication_service.get(medication_id)
