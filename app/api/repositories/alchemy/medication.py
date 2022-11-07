@@ -1,6 +1,6 @@
 from app.db import get_db
 from app.api.models import MedicationModel
-from app.api.schemas import MedicationSchemaCreate, MedicationSchema
+from app.api.schemas import MedicationSchemaCreate
 
 
 class MedicationRepository(object):

@@ -1,7 +1,6 @@
 from typing import List
 
 from app.api.schemas import DroneSchemaCreate, DroneSchema
-from app.api.models import DroneModel
 from app.api.enums import DroneEnumState
 from app.api.repositories.alchemy.drone import DroneRepository
 from .medication import MedicationService
@@ -62,7 +61,7 @@ class DroneService(object):
         db_drone = self.get(drone_id)
         errors = list()
         if db_drone.weight_limit <= sum(
-            [m.weight for m in db_drone.medications]):
+                [m.weight for m in db_drone.medications]):
             errors.append("Weight limit exceeded")
         if db_drone.state not in [DroneEnumState.IDLE, DroneEnumState.LOADING]:
             errors.append("State not allowed")

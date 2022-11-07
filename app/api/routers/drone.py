@@ -1,15 +1,16 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException
 from typing import List
 
 from app.api.services.drone import DroneService
 from app.api.services.medication import MedicationService
 from app.api.schemas import (
-    DroneSchemaCreate, DroneSchema, MedicationSchema, MedicationSchemaCreate)
+    DroneSchemaCreate, DroneSchema, MedicationSchema)
 
 router = APIRouter()
 
 drone_service = DroneService()
 medication_service = MedicationService()
+
 
 @router.post("/", response_model=DroneSchema, status_code=201)
 def create_drone(drone: DroneSchemaCreate):
