@@ -74,6 +74,12 @@ Code quality:
 docker-compose run --rm api flake8 app
 ```
 
+### Battery control
+
+```bash
+python app/battery_control.py
+```
+
 ### API docs:
 
 * http://localhost:8001/docs
